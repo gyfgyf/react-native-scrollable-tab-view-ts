@@ -1,6 +1,6 @@
 {
   "name": "react-native-scrollable-tab-view-ts",
-  "version": "1.0.4",
+  "version": "1.0.41",
   "description": "This is probably my favorite navigation pattern on Android, I wish it were more common on iOS! This is a very simple JavaScript-only implementation of it for React Native. For more information about how the animations behind this work, check out the Rebound section of the React Native Animation Guide",
   "main": "index.tsx",
   "scripts": {
@@ -24,6 +24,10 @@
   ],
   "author": "gyfgyf",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gyfgyf/react-native-scrollable-tab-view-ts"
+  },
   "dependencies": {
     "@react-native-community/viewpager": "^2.0.2"
   }
