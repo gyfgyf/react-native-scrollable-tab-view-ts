@@ -18,6 +18,7 @@ import ViewPager from '@react-native-community/viewpager';
 import SceneComponent from './SceneComponent';
 import DefaultTabBar from './DefaultTabBar';
 
+const AnimatedViewPagerAndroid = Animated.createAnimatedComponent(ViewPager)
 const containerWidth = Dimensions.get('window').width;
 
 interface tabBarPropsInterface {
@@ -109,6 +110,7 @@ class ScrollableTabView extends Component<ScrollableTabViewProps, ScrollableTabV
     this._keyExists = this._keyExists.bind(this);
     this._onMomentumScrollBeginAndEnd = this._onMomentumScrollBeginAndEnd.bind(this);
     this._onScroll = this._onScroll.bind(this);
+    this._updateSelectedPage = this._updateSelectedPage.bind(this);
   }
   init() {
     let scrollValue;
@@ -168,8 +170,12 @@ class ScrollableTabView extends Component<ScrollableTabViewProps, ScrollableTabV
     }
     if (this.props.initialPage !== prevProps.initialPage) {
       const {
+        scrollXIOS,
         scrollValue,
       } = this.init();
+      if (!this.props.renderTabBar) {
+        this.setState({scrollXIOS})
+      }
       // @ts-ignore: Unreachable code error
       this.setState({
         scrollValue,
@@ -303,7 +309,6 @@ class ScrollableTabView extends Component<ScrollableTabViewProps, ScrollableTabV
       )
     } else {
       const scenes = this._composeScenes();
-      const AnimatedViewPagerAndroid = Animated.createAnimatedComponent(ViewPager)
       return <AnimatedViewPagerAndroid
         key={this._children().length}
         style={styles.scrollableContentAndroid}

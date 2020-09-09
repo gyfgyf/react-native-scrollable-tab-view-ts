@@ -26,15 +26,26 @@ const App = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-          <Header />
           <View style={styles.body}>
             <ScrollableTabView
               initialPage={2}
               renderTabBar={renderTabBar}
             >
-              <View tabLabel={'1'} style={styles.body}></View>
-              <View tabLabel={'2'} style={styles.body}></View>
-              <View tabLabel={'3'} style={styles.body}></View>
+              <View tabLabel={'网页'} style={styles.item}></View>
+              <View tabLabel={'资讯'} style={styles.item}></View>
+              <View tabLabel={'视频'} style={styles.item}></View>
+              <View tabLabel={'图片'} style={styles.item}></View>
+              <View tabLabel={'知道'} style={styles.item}></View>
+              <View tabLabel={'文库'} style={styles.item}></View>
+              <View tabLabel={'贴吧'} style={styles.item}></View>
+              <View tabLabel={'地图'} style={styles.item}></View>
+              <View tabLabel={'采购'} style={styles.item}></View>
+              <View tabLabel={'更多'} style={styles.item}></View>
+              <View tabLabel={'网页'} style={styles.item}></View>
+              <View tabLabel={'资讯'} style={styles.item}></View>
+              <View tabLabel={'视频'} style={styles.item}></View>
+              <View tabLabel={'图片'} style={styles.item}></View>
+              <View tabLabel={'知道'} style={styles.item}></View>
             </ScrollableTabView>
           </View>
         </ScrollView>
@@ -53,6 +64,9 @@ const styles = StyleSheet.create({
   },
   body: {
     backgroundColor: Colors.white,
+  },
+  item: {
+    paddingHorizontal:20,
   },
   sectionContainer: {
     marginTop: 32,

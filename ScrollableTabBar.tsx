@@ -1,4 +1,3 @@
-
 import React, { ReactElement } from 'react';
 import {
   View,
@@ -11,13 +10,13 @@ import {
   ColorValue,
   ViewStyle,
   TextStyle,
-  LayoutChangeEvent,
   TouchableWithoutFeedback,
+  LayoutChangeEvent,
 } from 'react-native';
-
 import tabBarStyle from './tabBarStyle';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
+
 
 interface ScrollableTabBarProps{
   activeTab?: number;
@@ -53,7 +52,7 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps,Scrolla
     tabStyle: tabBarStyle.tabStyle,
     tabsContainerStyle: tabBarStyle.tabsContainerStyle,
     underlineStyle: tabBarStyle.tabBarUnderlineStyle,
-    tabUnderlineWidth: 16, 
+    tabUnderlineWidth: 16,
   }
   private _tabsMeasurements: { left: number, right: number, width: number, height: number }[];
   private _tabContainerMeasurements: any;
@@ -74,7 +73,8 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps,Scrolla
   updateView = (offset:any) => {
     const position = Math.floor(offset.value);
     const pageOffset = offset.value % 1;
-    const tabCount =this.props.tabs && this.props.tabs.length|| 0;
+    // @ts-ignore: Unreachable code error
+    const tabCount = this.props.tabs.length;
     const lastTabPosition = tabCount - 1;
 
     if (tabCount === 0 || offset.value < 0 || offset.value > lastTabPosition) {
@@ -124,13 +124,13 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps,Scrolla
       return null;
     }
     if (tabUnderlineWidth) { 
-      fillValue = this._tabsMeasurements[position].width / 2 - (tabUnderlineWidth / 2); // 我添加的
+      fillValue = this._tabsMeasurements[position].width / 2 - (tabUnderlineWidth / 2); 
     }
     if (position < tabCount - 1) {
       const nextTabLeft = this._tabsMeasurements[position + 1].left;
       const nextTabRight = this._tabsMeasurements[position + 1].right;
 
-      let newLineLeft = (pageOffset * nextTabLeft + (1 - pageOffset) * lineLeft); 
+      let newLineLeft = (pageOffset * nextTabLeft + (1 - pageOffset) * lineLeft);
 
       if (tabUnderlineWidth) { 
 
@@ -143,12 +143,12 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps,Scrolla
       if (!tabUnderlineWidth) {
         this.state._widthTabUnderline.setValue(newLineRight - newLineLeft); 
       } else {
-        this.state._widthTabUnderline.setValue(tabUnderlineWidth); 
+        this.state._widthTabUnderline.setValue(tabUnderlineWidth);
       }
     } else {
       if (!tabUnderlineWidth) {
         this.state._leftTabUnderline.setValue(lineLeft);
-        this.state._widthTabUnderline.setValue(lineRight - lineLeft); 
+        this.state._widthTabUnderline.setValue(lineRight - lineLeft);
       } else {
         this.state._leftTabUnderline.setValue(lineLeft + fillValue);
         this.state._widthTabUnderline.setValue(tabUnderlineWidth);
@@ -160,8 +160,10 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps,Scrolla
     if (renderTab) {
       renderTab(name, page, isTabActive, onPressHandler, onLayoutHandler);
     }
+
     const textColor = isTabActive ? activeTextColor : inactiveTextColor;
     const fontWeight = isTabActive ? 'bold' : 'normal';
+
     return <TouchableWithoutFeedback
       key={`${name}_${page}`}
       accessible={true}
@@ -175,7 +177,7 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps,Scrolla
           {name}
         </Text>
       </View>
-    </TouchableWithoutFeedback>
+    </TouchableWithoutFeedback>;
   }
   measureTab(page:number, event:any) {
     const { x, width, height, } = event.nativeEvent.layout;
@@ -191,10 +193,17 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps,Scrolla
       bottom: 0,
     };
 
-    const dynamicTabUnderline = {
+    const dynamicTabUnderline:ViewStyle = {
       left: this.state._leftTabUnderline,
       width: this.state._widthTabUnderline,
     };
+    
+    const tabContainerStyle:ViewStyle = {
+      ...styles.tabs,
+      // @ts-ignore: Unreachable code error
+      width: this.state._containerWidth,
+     ...this.props.tabsContainerStyle
+    }
     const style:ViewStyle = {
       ...styles.container,
       backgroundColor: this.props.backgroundColor,
@@ -205,13 +214,8 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps,Scrolla
       ...dynamicTabUnderline,
       ...this.props.underlineStyle,
     }
-    const tabContainerStyle:ViewStyle = {
-      ...styles.tabs,
-      width: this.state._containerWidth|| 0,
-     ...this.props.tabsContainerStyle
-    }
     return (
-      <View>
+      <View> 
         {this.props.topView && this.props.topView}
         <View
           style={style}
@@ -231,7 +235,7 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps,Scrolla
               ref={'tabContainer'}
               onLayout={this.onTabContainerLayout}
             >
-              {this.props.tabs && this.props.tabs.map((name:string, page:number) => {
+              {this.props.tabs && this.props.tabs.map((name, page) => {
                 const isTabActive = this.props.activeTab === page;
                 // @ts-ignore: Unreachable code error
                 return this.renderTab(name, page, isTabActive, this.props.goToPage, this.measureTab.bind(this, page));

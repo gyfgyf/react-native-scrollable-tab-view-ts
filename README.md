@@ -86,8 +86,8 @@ To start you can just copy [DefaultTabBar](https://github.com/skv-headless/react
 - **`onChangeTab`** _(Function)_ - function to call when tab changes, should accept 1 argument which is an Object containing two keys: `i`: the index of the tab that is selected, `ref`: the ref of the tab that is selected
 - **`onScroll`** _(Function)_ - function to call when the pages are sliding, should accept 1 argument which is an Float number representing the page position in the slide frame.
 - **`locked`** _(Bool)_ - disables horizontal dragging to scroll between tabs, default is false.
-- **`initialPage`** _(Integer)_ - the index of the initially selected tab, defaults to 0 === first tab.
-- **`page`** _(Integer)_ - set selected tab(can be buggy see  [#126](https://github.com/brentvatne/react-native-scrollable-tab-view/issues/126)
+- **`initialPage`** _(Integer)_ - the index of the initially selected tab, defaults to 0 === first tab. **when initialPage change  set selected tab** 
+- **`page`** _(Integer)_()**This option has been falsely abolished and is not recommended，Please use it as a substitute initialPage** - set selected tab(can be buggy see  [#126](https://github.com/brentvatne/react-native-scrollable-tab-view/issues/126)
 - **`children`** _(ReactComponents)_ - each top-level child component should have a `tabLabel` prop that can be used by the tab bar component to render out the labels. The default tab bar expects it to be a string, but you can use anything you want if you make a custom tab bar.
 - **`tabBarUnderlineStyle`** _([View.propTypes.style](https://facebook.github.io/react-native/docs/view.html#style))_ - style of the default tab bar's underline.
 - **`tabBarBackgroundColor`** _(String)_ - color of the default tab bar's background, defaults to `white`
