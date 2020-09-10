@@ -13,9 +13,9 @@ import {
 import Button from './Button';
 
 interface DefaultTabBarProps{
-  goToPage: Function,
-  activeTab: number,
-  tabs: any[],
+  goToPage?: Function,
+  activeTab?: number,
+  tabs?: string[],
   backgroundColor?: ColorValue,
   activeTextColor?: ColorValue,
   inactiveTextColor?: ColorValue,
@@ -23,8 +23,8 @@ interface DefaultTabBarProps{
   tabStyle?: ViewStyle,
   renderTab?: Function,
   underlineStyle?: ViewStyle,
-  containerWidth: number;
-  scrollValue: any;
+  containerWidth?: number;
+  scrollValue?: any;
 }
 
 class DefaultTabBar extends React.Component<DefaultTabBarProps,any>{
@@ -59,8 +59,8 @@ class DefaultTabBar extends React.Component<DefaultTabBarProps,any>{
   }
 
   render() {
-    const containerWidth = this.props.containerWidth;
-    const numberOfTabs = this.props.tabs.length;
+    const containerWidth = this.props.containerWidth||0;
+    const numberOfTabs =this.props.tabs && this.props.tabs.length||0;
     const tabUnderlineStyle:ViewStyle = {
       position: 'absolute',
       width: containerWidth / numberOfTabs,
@@ -76,7 +76,7 @@ class DefaultTabBar extends React.Component<DefaultTabBarProps,any>{
 
     return (
       <View style={[styles.tabs, {backgroundColor: this.props.backgroundColor, }, this.props.style, ]}>
-        {this.props.tabs.map((name, page) => {
+        {this.props.tabs && this.props.tabs.map((name, page) => {
           const isTabActive = this.props.activeTab === page;
           const renderTab = this.props.renderTab || this.renderTab;
           return renderTab(name, page, isTabActive, this.props.goToPage);

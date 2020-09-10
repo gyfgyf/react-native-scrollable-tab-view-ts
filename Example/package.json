@@ -14,7 +14,8 @@
   "dependencies": {
     "@react-native-community/viewpager": "^4.1.6",
     "react": "16.13.1",
-    "react-native": "0.63.2"
+    "react-native": "0.63.2",
+    "react-native-vector-icons": "^7.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
